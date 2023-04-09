@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  p Check up on the shoe inventory and add or remove stock. Made in Express.
+
+  if error
+    p Error getting dynamic content.
+  else
+    h1 Inventory stats:
+
+    ul
+      li #[strong Items:] !{data.item_count}
+      li #[strong Categories:] !{data.category_count}
