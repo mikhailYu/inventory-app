@@ -7,8 +7,10 @@ var logger = require("morgan");
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB =
+
+const dev_db_url =
   "mongodb+srv://admin:adminPassword@cluster0.3kvakkg.mongodb.net/inventory-app?retryWrites=true&w=majority";
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -22,8 +24,8 @@ const catalogRouter = require("./routes/catalog"); //Import routes for "catalog"
 const compression = require("compression");
 const helmet = require("helmet");
 
-app.use(helmet());
 var app = express();
+app.use(helmet());
 var RateLimit = require("express-rate-limit");
 var limiter = RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
